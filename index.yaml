@@ -3,7 +3,7 @@ entries:
   traccar:
   - apiVersion: v2
     appVersion: "4.13"
-    created: "2021-06-19T19:58:39.669751+02:00"
+    created: "2021-06-19T20:12:23.195712+02:00"
     dependencies:
     - condition: mysql.enabled
       name: mysql
@@ -14,6 +14,6 @@ entries:
     name: traccar
     type: application
     urls:
-    - https://traccar.github.io/helm-chart/traccar-0.1.0.tgz
+    - https://traccar.github.io/traccar-helm/traccar-0.1.0.tgz
     version: 0.1.0
-generated: "2021-06-19T19:58:39.666732+02:00"
+generated: "2021-06-19T20:12:23.192574+02:00"
