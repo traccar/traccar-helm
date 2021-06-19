@@ -1,0 +1,116 @@
+traccar:
+  # server:
+  #   statistics:
+  web:
+    # enable: "true"
+    # address: "0.0.0.0"
+    # port: "8082"
+    # path:
+    # debug: "false"
+    # console: "true"
+    # timeout:
+    # old:
+    # application:
+    healthCheck: "false"
+  # geocoder:
+  #   enable:
+  #   type:
+  #   url:
+  #   onRequest:
+  #   ignorePorisions:
+  #   processInvalidPositions:
+  #   format:
+  #   reuseDistance:
+  # geolocation:
+  #   enable:
+  #   type:
+  #   key:
+  #   mcc:
+  #   mnc:
+  #   processInvalidPositions:
+  # filter:
+  #   enable:
+  #   skipLimit:
+  #   invalid:
+  #   zero:
+  #   duplicate:
+  #   distance:
+  #   future:
+  #   maxSpeed:
+  #   skipAttributes:
+  # distance:
+  #   enable:
+  logger:
+    enable: "true"
+    level: "info"
+    file: "/dev/stdout"
+    rotate: "false"
+  # processing:
+  # database:
+  # globalsat:
+  #   format0:
+  #   format1:
+  # coordinates:
+  # event:
+  # speedLimit:
+  # devicemanager:
+  # event:
+  # forward:
+  # mail:
+  # templates:
+  # report:
+  # wialon:
+  # status:
+  #   timeout:
+  # sms:
+
+mysql:
+  enabled: true
+  auth:
+    database: "traccar"
+    username: "traccar"
+    password: "traccar"
+
+image:
+  repository: traccar/traccar
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext:
+  capabilities:
+    drop:
+    - ALL
+  readOnlyRootFilesystem: false
+  runAsNonRoot: true
+  runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 80
+
+resources: {}
+
+nodeSelector:
+
+tolerations: []
+
+affinity: {}

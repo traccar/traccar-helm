@@ -1,0 +1,80 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "traccar.fullname" . }}
+  labels:
+    {{- include "traccar.labels" . | nindent 4 }}
+data:
+  traccar.xml: |
+    <?xml version='1.0' encoding='UTF-8'?>
+    <!DOCTYPE properties SYSTEM 'http://java.sun.com/dtd/properties.dtd'>
+    <properties>
+        <entry key='config.default'>./conf/default.xml</entry>
+
+{{- if .Values.traccar.server }}
+{{- if .Values.traccar.server.statistics }}
+        <entry key='server.statistics'>{{ .Values.traccar.server.statistics }}</entry>
+{{- end }}
+{{- end }}
+
+{{- if .Values.mysql.enabled }}
+        <entry key='database.driver'>com.mysql.cj.jdbc.Driver</entry>
+        <entry key='database.url'>jdbc:mysql://{{ include "traccar.fullname" . }}-mysql:3306/{{ .Values.mysql.auth.database }}?serverTimezone=UTC&amp;useSSL=false&amp;allowMultiQueries=true&amp;autoReconnect=true&amp;useUnicode=yes&amp;characterEncoding=UTF-8&amp;sessionVariables=sql_mode=''</entry>
+        <entry key='database.user'>{{ .Values.mysql.auth.username }}</entry>
+        <entry key='database.password'>{{ .Values.mysql.auth.password }}</entry>
+{{- end }}
+
+{{- if .Values.traccar.logger }}
+{{- if eq .Values.traccar.logger.enable "true" }}
+        <entry key='logger.enable'>{{ .Values.traccar.logger.enable }}</entry>
+{{- if .Values.traccar.logger.level }}
+        <entry key='logger.level'>{{ .Values.traccar.logger.level }}</entry>
+{{- end }}
+{{- if .Values.traccar.logger.file }}
+        <entry key='logger.file'>{{ .Values.traccar.logger.file }}</entry>
+{{- end }}
+{{- if .Values.traccar.logger.rotate }}
+        <entry key='logger.rotate'>{{ .Values.traccar.logger.rotate }}</entry>
+{{- end }}
+{{ else }}
+        <entry key='logger.enable'>{{ .Values.traccar.logger.enable }}</entry>
+{{- end }}
+{{- end }}
+
+{{- if .Values.traccar.web }}
+{{- if .Values.traccar.web.enable }}
+        <entry key='web.enable'>{{ .Values.traccar.web.enable }}</entry>
+{{- end }}
+{{- if .Values.traccar.web.address }}
+        <entry key='web.address'>{{ .Values.traccar.web.address }}</entry>
+{{- end }}
+{{- if .Values.traccar.web.port }}
+        <entry key='web.port'>{{ .Values.traccar.web.port }}</entry>
+{{- end }}
+{{- if .Values.traccar.web.path }}
+        <entry key='web.path'>{{ .Values.traccar.web.path }}</entry>
+{{- end }}
+{{- if .Values.traccar.web.debug }}
+        <entry key='web.debug'>{{ .Values.traccar.web.debug }}</entry>
+{{- end }}
+{{- if .Values.traccar.web.console }}
+        <entry key='web.console'>{{ .Values.traccar.web.console }}</entry>
+{{- end }}
+{{- if .Values.traccar.web.timeout }}
+        <entry key='web.timeout'>{{ .Values.traccar.web.timeout }}</entry>
+{{- end }}
+{{- if .Values.traccar.web.old }}
+        <entry key='web.old'>{{ .Values.traccar.web.old }}</entry>
+{{- end }}
+{{- if .Values.traccar.web.application }}
+        <entry key='web.application'>{{ .Values.traccar.web.application }}</entry>
+{{- end }}
+{{- if .Values.traccar.web.healthCheck }}
+        <entry key='web.healthCheck'>{ .Values.traccar.web.healthCheck }}</entry>
+{{- end }}
+{{- end }}
+
+{{- if .Values.traccar.speedLimit }}
+        <entry key='speedLimit'>{{ .Values.traccar.speedLimit }}</entry>
+{{- end }}
+    </properties>
