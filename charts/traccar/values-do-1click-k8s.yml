@@ -1,0 +1,102 @@
+service:
+  type: LoadBalancer
+  protocolPorts:
+    - name: gps103
+      port: 5001
+      targetPort: gps103
+    - name: tk103
+      port: 5002
+      targetPort: tk103
+    - name: gl200
+      port: 5004
+      targetPort: gl200
+    - name: xexun
+      port: 5006
+      targetPort: xexun
+    - name: totem
+      port: 5007
+      targetPort: totem
+    - name: meiligao
+      port: 5009
+      targetPort: meiliago
+    - name: suntech
+      port: 5011
+      targetPort: suntech
+    - name: h02
+      port: 5013
+      targetPort: h02
+    - name: huabao
+      port: 5015
+      targetPort: huabao
+    - name: meitrack
+      port: 5020
+      targetPort: meitrack
+    - name: skypatrol
+      port: 5021
+      targetPort: skypatrol
+    - name: gt06
+      port: 5023
+      targetPort: gt06
+    - name: megastek
+      port: 5024
+      targetPort: megastek
+    - name: teltonika
+      port: 5027
+      targetPort: teltonika
+    - name: cellocator
+      port: 5033
+      targetPort: cellocator
+    - name: galileo
+      port: 5034
+      targetPort: galileo
+    - name: ruptela
+      port: 5046
+      targetPort: ruptela
+    - name: laipac
+      port: 5048
+      targetPort: laipac
+    - name: gator
+      port: 5052
+      targetPort: gator
+    - name: osmand
+      port: 5055
+      targetPort: osmand
+    - name: easytrack
+      port: 5056
+      targetPort: easytrack
+    - name: khd
+      port: 5058
+      targetPort: khd
+    - name: cartrack
+      port: 5061
+      targetPort: cartrack
+    - name: eelink
+      port: 5064
+      targetPort: eelink
+    - name: xirgo
+      port: 5081
+      targetPort: xirgo
+    - name: calamp
+      port: 5082
+      targetPort: calamp
+    - name: mxt
+      port: 5087
+      targetPort: mxt
+    - name: watch
+      port: 5093
+      targetPort: watch
+    - name: dmthttp
+      port: 5139
+      targetPort: dmthttp
+    - name: flespi
+      port: 5149
+      targetPort: flespi
+    - name: egts
+      port: 5162
+      targetPort: egts
+    - name: pst
+      port: 5207
+      targetPort: pst
+
+mysql:
+  enabled: true
