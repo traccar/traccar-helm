@@ -17,30 +17,6 @@ data:
 {{- end }}
 {{- end }}
 
-{{- if .Values.mysql.enabled }}
-        <entry key='database.driver'>com.mysql.cj.jdbc.Driver</entry>
-        <entry key='database.url'>jdbc:mysql://{{ include "traccar.fullname" . }}-mysql:3306/{{ .Values.mysql.auth.database }}?serverTimezone=UTC&amp;useSSL=false&amp;allowMultiQueries=true&amp;autoReconnect=true&amp;useUnicode=yes&amp;characterEncoding=UTF-8&amp;sessionVariables=sql_mode=''</entry>
-        <entry key='database.user'>{{ .Values.mysql.auth.username }}</entry>
-        <entry key='database.password'>{{ .Values.mysql.auth.password }}</entry>
-{{- end }}
-
-{{- if .Values.traccar.logger }}
-{{- if eq .Values.traccar.logger.enable "true" }}
-        <entry key='logger.enable'>{{ .Values.traccar.logger.enable }}</entry>
-{{- if .Values.traccar.logger.level }}
-        <entry key='logger.level'>{{ .Values.traccar.logger.level }}</entry>
-{{- end }}
-{{- if .Values.traccar.logger.file }}
-        <entry key='logger.file'>{{ .Values.traccar.logger.file }}</entry>
-{{- end }}
-{{- if .Values.traccar.logger.rotate }}
-        <entry key='logger.rotate'>{{ .Values.traccar.logger.rotate }}</entry>
-{{- end }}
-{{ else }}
-        <entry key='logger.enable'>{{ .Values.traccar.logger.enable }}</entry>
-{{- end }}
-{{- end }}
-
 {{- if .Values.traccar.web }}
 {{- if .Values.traccar.web.enable }}
         <entry key='web.enable'>{{ .Values.traccar.web.enable }}</entry>
@@ -69,12 +45,331 @@ data:
 {{- if .Values.traccar.web.application }}
         <entry key='web.application'>{{ .Values.traccar.web.application }}</entry>
 {{- end }}
-{{- if .Values.traccar.web.healthCheck }}
-        <entry key='web.healthCheck'>{ .Values.traccar.web.healthCheck }}</entry>
+        <entry key='web.healthCheck'>false</entry>
+{{- end }}
+
+{{- if .Values.traccar.geocoder }}
+{{- if .Values.traccar.geocoder.enable }}
+        <entry key='geocoder.enable'>{{ .Values.traccar.geocoder.enable }}</entry>
+{{- end }}
+{{- if .Values.traccar.geocoder.type }}
+        <entry key='geocoder.type'>{{ .Values.traccar.geocoder.type }}</entry>
+{{- end }}
+{{- if .Values.traccar.geocoder.url }}
+        <entry key='geocoder.url'>{{ .Values.traccar.geocoder.url }}</entry>
+{{- end }}
+{{- if .Values.traccar.geocoder.onRequest }}
+        <entry key='geocoder.onRequest'>{{ .Values.traccar.geocoder.onRequest }}</entry>
+{{- end }}
+{{- if .Values.traccar.geocoder.ignorePositions }}
+        <entry key='geocoder.ignorePositions'>{{ .Values.traccar.geocoder.ignorePositions }}</entry>
+{{- end }}
+{{- if .Values.traccar.geocoder.processInvalidPositions }}
+        <entry key='geocoder.processInvalidPositions'>{{ .Values.traccar.geocoder.processInvalidPositions }}</entry>
+{{- end }}
+{{- if .Values.traccar.geocoder.format }}
+        <entry key='geocoder.format'>{{ .Values.traccar.geocoder.format }}</entry>
+{{- end }}
+{{- if .Values.traccar.geocoder.reuseDistance }}
+        <entry key='geocoder.reuseDistance'>{{ .Values.traccar.geocoder.reuseDistance }}</entry>
+{{- end }}
+{{- end }}
+
+{{- if .Values.traccar.geolocation }}
+{{- if .Values.traccar.geolocation.enable }}
+        <entry key='geolocation.enable'>{{ .Values.traccar.geolocation.enable }}</entry>
+{{- end }}
+{{- if .Values.traccar.geolocation.type }}
+        <entry key='geolocation.type'>{{ .Values.traccar.geolocation.type }}</entry>
+{{- end }}
+{{- if .Values.traccar.geolocation.key }}
+        <entry key='geolocation.key'>{{ .Values.traccar.geolocation.key }}</entry>
+{{- end }}
+{{- if .Values.traccar.geolocation.mcc }}
+        <entry key='geolocation.mcc'>{{ .Values.traccar.geolocation.mcc }}</entry>
+{{- end }}
+{{- if .Values.traccar.geolocation.mnc }}
+        <entry key='geolocation.mnc'>{{ .Values.traccar.geolocation.mnc }}</entry>
+{{- end }}
+{{- if .Values.traccar.geolocation.processInvalidPositions }}
+        <entry key='geolocation.processInvalidPositions'>{{ .Values.traccar.geolocation.processInvalidPositions }}</entry>
+{{- end }}
+{{- end }}
+
+{{- if .Values.traccar.filter }}
+{{- if .Values.traccar.filter.enable }}
+        <entry key='filter.enable'>{{ .Values.traccar.filter.enable }}</entry>
+{{- end }}
+{{- if .Values.traccar.filter.skipLimit }}
+        <entry key='filter.skipLimit'>{{ .Values.traccar.filter.skipLimit }}</entry>
+{{- end }}
+{{- if .Values.traccar.filter.invalid }}
+        <entry key='filter.invalid'>{{ .Values.traccar.filter.invalid }}</entry>
+{{- end }}
+{{- if .Values.traccar.filter.zero }}
+        <entry key='filter.zero'>{{ .Values.traccar.filter.zero }}</entry>
+{{- end }}
+{{- if .Values.traccar.filter.duplicate }}
+        <entry key='filter.duplicate'>{{ .Values.traccar.filter.duplicate }}</entry>
+{{- end }}
+{{- if .Values.traccar.filter.distance }}
+        <entry key='filter.distance'>{{ .Values.traccar.filter.distance }}</entry>
+{{- end }}
+{{- if .Values.traccar.filter.future }}
+        <entry key='filter.future'>{{ .Values.traccar.filter.future }}</entry>
+{{- end }}
+{{- if .Values.traccar.filter.maxSpeed }}
+        <entry key='filter.maxSpeed'>{{ .Values.traccar.filter.maxSpeed }}</entry>
+{{- end }}
+{{- if .Values.traccar.filter.skipAttributes }}
+        <entry key='filter.skipAttributes'>{{ .Values.traccar.filter.skipAttributes }}</entry>
+{{- end }}
+{{- end }}
+
+{{- if .Values.traccar.distance }}
+{{- if eq .Values.traccar.distance.enable "true" }}
+        <entry key='distance.enable'>{{ .Values.traccar.distance.enable }}</entry>
+{{- end }}
+{{- end }}
+
+{{- if .Values.traccar.logger }}
+{{- if eq .Values.traccar.logger.enable "true" }}
+        <entry key='logger.enable'>{{ .Values.traccar.logger.enable }}</entry>
+{{- if .Values.traccar.logger.level }}
+        <entry key='logger.level'>{{ .Values.traccar.logger.level }}</entry>
+{{- end }}
+        <entry key='logger.file'>/dev/stdout</entry>
+        <entry key='logger.rotate'>false</entry>
+{{ else }}
+        <entry key='logger.enable'>{{ .Values.traccar.logger.enable }}</entry>
+{{- end }}
+{{- end }}
+
+{{- if .Values.traccar.processing }}
+{{- if .Values.traccar.processing.remoteAddress }}
+{{- if .Values.traccar.processing.remoteAddress.enable }}
+        <entry key='processing.remoteAddress.enable'>{{ .Values.traccar.processing.remoteAddress.enable }}</entry>
+{{- end }}
+{{- end }}
+{{- if .Values.traccar.processing.copyAttributes }}
+{{- if .Values.traccar.processing.copyAttributes.enable }}
+        <entry key='processing.copyAttributes.enable'>{{ .Values.traccar.processing.copyAttributes.enable }}</entry>
+        <entry key='processing.copyAttributes'>{{ .Values.traccar.processing.copyAttributes }}</entry>
+{{- end }}
+{{- end }}
+{{- end }}
+
+{{- if or .Values.traccar.database .Values.mysql.enabled }}
+{{- if .Values.mysql.enabled }}
+        <entry key='database.driver'>com.mysql.cj.jdbc.Driver</entry>
+        <entry key='database.url'>jdbc:mysql://{{ include "traccar.fullname" . }}-mysql:3306/{{ .Values.mysql.auth.database }}?serverTimezone=UTC&amp;useSSL=false&amp;allowMultiQueries=true&amp;autoReconnect=true&amp;useUnicode=yes&amp;characterEncoding=UTF-8&amp;sessionVariables=sql_mode=''</entry>
+        <entry key='database.user'>{{ .Values.mysql.auth.username }}</entry>
+        <entry key='database.password'>{{ .Values.mysql.auth.password }}</entry>
+{{- else }}
+{{- if .Values.traccar.database.driverFile }}
+        <entry key='database.driverFile'>{{ .Values.traccar.database.driverFile }}</entry>
+{{- end }}
+{{- if .Values.traccar.database.driver }}
+        <entry key='database.driver'>{{ .Values.traccar.database.driver }}</entry>
+{{- end }}
+{{- if .Values.traccar.database.url }}
+        <entry key='database.url'>{{ .Values.traccar.database.url }}</entry>
+{{- end }}
+{{- if .Values.traccar.database.user }}
+        <entry key='database.user'>{{ .Values.traccar.database.user }}</entry>
+{{- end }}
+{{- if .Values.traccar.database.password }}
+        <entry key='database.password'>{{ .Values.traccar.database.password }}</entry>
+{{- end }}
+{{- end }}
+{{- end }}
+{{- if .Values.traccar.database }}
+{{- if .Values.traccar.database.changelog }}
+        <entry key='database.changelog'>{{ .Values.traccar.database.changelog }}</entry>
+{{- end }}
+{{- if .Values.traccar.database.selectDevicesAll }}
+        <entry key='database.selectDevicesAll'>{{ .Values.traccar.database.selectDevicesAll }}</entry>
+{{- end }}
+{{- if .Values.traccar.database.checkConnection }}
+        <entry key='database.checkConnection'>{{ .Values.traccar.database.checkConnection }}</entry>
+{{- end }}
+{{- if .Values.traccar.database.ignoreUnknown }}
+        <entry key='database.ignoreUnknown'>{{ .Values.traccar.database.ignoreUnknown }}</entry>
+{{- end }}
+{{- if .Values.traccar.database.registerUnknown }}
+        <entry key='database.registerUnknown'>{{ .Values.traccar.database.registerUnknown }}</entry>
+{{- if .Values.traccar.database.registerUnknown.defaultGroupId }}
+        <entry key='database.registerUnknown.defaultGroupId'>{{ .Values.traccar.database.registerUnknown.defaultGroupId }}</entry>
+{{- end }}
+{{- end }}
+{{- if .Values.traccar.database.xml }}
+        <entry key='database.xml'>{{ .Values.traccar.database.xml }}</entry>
+{{- end }}
+{{- if .Values.traccar.database.saveOriginal }}
+        <entry key='database.saveOriginal'>{{ .Values.traccar.database.saveOriginal }}</entry>
+{{- end }}
+{{- if .Values.traccar.database.selectDevicesAll }}
+        <entry key='database.selectDevicesAll'>{{ .Values.traccar.database.selectDevicesAll }}</entry>
+{{- end }}
+{{- if .Values.traccar.database.insertPosition }}
+        <entry key='database.insertPosition'>{{ .Values.traccar.database.insertPosition }}</entry>
+{{- end }}
+{{- if .Values.traccar.database.updateLatestPosition }}
+        <entry key='database.updateLatestPosition'>{{ .Values.traccar.database.updateLatestPosition }}</entry>
+{{- end }}
+{{- end }}
+
+{{- if .Values.traccar.globalsat }}
+{{- if .Values.traccar.globalsat.format0 }}
+        <entry key='globalsat.format0'>{{ .Values.traccar.globalsat.format0 }}</entry>
+{{- end }}
+{{- if .Values.traccar.globalsat.format1 }}
+        <entry key='globalsat.format1'>{{ .Values.traccar.globalsat.format1 }}</entry>
+{{- end }}
+{{- end }}
+
+{{- if .Values.traccar.coordinates }}
+{{- if .Values.traccar.coordinates.filter }}
+        <entry key='coordinates.filter'>{{ .Values.traccar.coordinates.filter }}</entry>
+{{- end }}
+{{- if .Values.traccar.coordinates.minError }}
+        <entry key='coordinates.minError'>{{ .Values.traccar.coordinates.minError }}</entry>
+{{- end }}
+{{- if .Values.traccar.coordinates.maxError }}
+        <entry key='coordinates.maxError'>{{ .Values.traccar.coordinates.maxError }}</entry>
+{{- end }}
+{{- end }}
+
+{{- if .Values.traccar.event }}
+{{- if .Values.traccar.event.enable }}
+        <entry key='event.enable'>{{ .Values.traccar.event.enable }}</entry>
+{{- if .Values.traccar.event.motion }}
+{{- if .Values.traccar.event.motion.speedThreshold }}
+        <entry key='event.motion.speedThreshold'>{{ .Values.traccar.event.motion.speedThreshold }}</entry>
+{{- end }}
+{{- end }}
+{{- if .Values.traccar.event.overspeed }}
+{{- if .Values.traccar.event.overspeed.notRepeat }}
+        <entry key='event.overspeed.notRepeat'>{{ .Values.traccar.event.overspeed.notRepeat }}</entry>
+{{- end }}
+{{- end }}
+{{- if .Values.traccar.event.forward }}
+{{- if .Values.traccar.event.forward.enable }}
+        <entry key='event.forward.enable'>{{ .Values.traccar.event.forward.enable }}</entry>
+{{- if .Values.traccar.event.forward.url }}
+        <entry key='event.forward.url'>{{ .Values.traccar.event.forward.url }}</entry>
+{{- end }}
+{{- if .Values.traccar.event.forward.header }}
+        <entry key='event.forward.header'>{{ .Values.traccar.event.forward.header }}</entry>
+{{- end }}
+{{- end }}
+{{- end }}
 {{- end }}
 {{- end }}
 
 {{- if .Values.traccar.speedLimit }}
         <entry key='speedLimit'>{{ .Values.traccar.speedLimit }}</entry>
+{{- end }}
+
+{{- if .Values.traccar.deviceManager }}
+{{- if .Values.traccar.deviceManager.lookupGroupsAttribute }}
+        <entry key='deviceManager.lookupGroupsAttribute'>{{ .Values.traccar.deviceManager.lookupGroupsAttribute }}</entry>
+{{- end }}
+{{- end }}
+{{- if .Values.traccar.forward }}
+{{- if .Values.traccar.forward.enable }}
+        <entry key='forward.enable'>{{ .Values.traccar.forward.enable }}</entry>
+{{- if .Values.traccar.forward.url }}
+        <entry key='forward.url'>{{ .Values.traccar.forward.url }}</entry>
+{{- end }}
+{{- if .Values.traccar.forward.json }}
+        <entry key='forward.json'>{{ .Values.traccar.forward.json }}</entry>
+{{- end }}
+{{- end }}
+{{- end }}
+{{- if .Values.traccar.mail }}
+{{- if .Values.traccar.mail.smtp }}
+{{- if .Values.traccar.mail.smtp.host }}
+        <entry key='mail.smtp.host'>{{ .Values.traccar.mail.smtp.host }}</entry>
+{{- end }}
+{{- if .Values.traccar.mail.smtp.port }}
+        <entry key='mail.smtp.port'>{{ .Values.traccar.mail.smtp.port }}</entry>
+{{- end }}
+{{- if .Values.traccar.mail.smtp.starttls }}
+{{- if .Values.traccar.mail.smtp.starttls.enable }}
+        <entry key='mail.smtp.starttls.enable'>{{ .Values.traccar.mail.smtp.starttls.enable }}</entry>
+{{- if .Values.traccar.mail.smtp.starttls.required }}
+        <entry key='mail.smtp.starttls.required'>{{ .Values.traccar.mail.smtp.starttls.required }}</entry>
+{{- end }}
+{{- end }}
+{{- end }}
+{{- if .Values.traccar.mail.smtp.ssl }}
+{{- if .Values.traccar.mail.smtp.ssl.enable }}
+        <entry key='mail.smtp.ssl.enable'>{{ .Values.traccar.mail.smtp.ssl.enable }}</entry>
+{{- if .Values.traccar.mail.smtp.ssl.trust }}
+        <entry key='mail.smtp.ssl.trust'>{{ .Values.traccar.mail.smtp.ssl.trust }}</entry>
+{{- end }}
+{{- if .Values.traccar.mail.smtp.ssl.protocols }}
+        <entry key='mail.smtp.ssl.protocols'>{{ .Values.traccar.mail.smtp.ssl.protocols }}</entry>
+{{- end }}
+{{- end }}
+{{- end }}
+{{- if .Values.traccar.mail.smtp.from}}
+        <entry key='mail.smtp.debug'>{{ .Values.traccar.mail.smtp.from}}</entry>
+{{- end }}
+{{- if .Values.traccar.mail.smtp.auth }}
+        <entry key='mail.smtp.auth'>{{ .Values.traccar.mail.smtp.auth }}</entry>
+{{- end }}
+{{- if .Values.traccar.mail.smtp.username }}
+        <entry key='mail.smtp.username'>{{ .Values.traccar.mail.smtp.username }}</entry>
+{{- end }}
+{{- if .Values.traccar.mail.smtp.password }}
+        <entry key='mail.smtp.password'>{{ .Values.traccar.mail.smtp.password }}</entry>
+{{- end }}
+{{- end }}
+{{- end }}
+
+{{- if .Values.traccar.templates }}
+{{- if .Values.traccar.templates.rootPath }}
+        <entry key='templates.rootPath'>{{ .Values.traccar.templates.rootPath }}</entry>
+{{- end }}
+{{- end }}
+
+{{- if .Values.traccar.report }}
+{{- if .Values.traccar.report.trip }}
+{{- if .Values.traccar.report.trip.minimalTripDuration }}
+        <entry key='report.trip.minimalTripDuration'>{{ .Values.traccar.report.trip.minimalTripDuration }}</entry>
+{{- end }}
+{{- if .Values.traccar.report.trip.minimalTripDistance }}
+        <entry key='report.trip.minimalTripDistance'>{{ .Values.traccar.report.trip.minimalTripDistance }}</entry>
+{{- end }}
+{{- if .Values.traccar.report.trip.minimalParkingDuration }}
+        <entry key='report.trip.minimalParkingDuration'>{{ .Values.traccar.report.trip.minimalParkingDuration }}</entry>
+{{- end }}
+{{- if .Values.traccar.report.trip.greedyParking }}
+        <entry key='report.trip.greedyParking'>{{ .Values.traccar.report.trip.greedyParking }}</entry>
+{{- end }}
+{{- if .Values.traccar.report.trip.useIgnition }}
+        <entry key='report.trip.useIgnition'>{{ .Values.traccar.report.trip.useIgnition }}</entry>
+{{- end }}
+{{- end }}
+{{- end }}
+
+{{- if .Values.traccar.wialon }}
+{{- if .Values.traccar.wialon.utf8 }}
+        <entry key='wialon.utf8'>{{ .Values.traccar.wialon.utf8 }}</entry>
+{{- end }}
+{{- end }}
+
+{{- if .Values.traccar.status }}
+{{- if .Values.traccar.status.timeout }}
+        <entry key='status.timeout'>{{ .Values.traccar.status.timeout }}</entry>
+{{- end }}
+{{- end }}
+
+{{- if .Values.traccar.sms }}
+{{- if .Values.traccar.sms.enable }}
+        <entry key='sms.enable'>{{ .Values.traccar.sms.enable }}</entry>
+{{- end }}
 {{- end }}
     </properties>

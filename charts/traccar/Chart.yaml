@@ -1,11 +1,14 @@
 apiVersion: v2
 name: traccar
-description: A Helm chart for Kubernetes
+description: A Helm chart for Traccar GPS Server
 type: application
-version: 0.1.0
+version: 1.0.0
 appVersion: "4.13"
 dependencies:
   - name: mysql
     version: 8.6.2
     repository: https://charts.bitnami.com/bitnami
     condition: mysql.enabled
+maintainers:
+  - email: laszlo.kondas@gmail.com
+    name: kondas
