@@ -13,46 +13,14 @@ To install the chart with the release name `my-traccar`, run the following comma
 helm repo add traccar https://traccar.github.io/traccar-helm/
 helm install my-traccar traccar/traccar
 ```
-These commands deploy Traccar server configured with a MySQL server. You can customize the deployment using a custom values file, or command-line arguments.
+These commands deploy Traccar server configured with a MySQL database. You can customize the deployment using a custom values file, or command-line arguments.
 
 ### Uninstalling the Chart
 To uninstall/delete the `my-traccar` deployment, run the following command:
 ```
 helm del my-traccar
 ```
-The command removes all the Kubernetes components associated with the deplyoment except the PersistentVolume objects, for safety reasons. 
+The command removes all the Kubernetes components associated with the deplyoment except the PersistentVolume objects, for safety reasons.
 
-### Protocols
-Due to some Cloud Vendor limitations the chart only enables the most common protocols by default:
-- totem - 5007
-- eelink - 5064
-- meiligao - 5009
-- gt06 - 5023
-- pst - 5207
-- calamp - 5082
-- cartrack - 5061
-- mxt - 5087
-- watch - 5093
-- tk103 - 5002
-- xirgo - 5081
-- huabao - 5015
-- gps103 - 5001
-- ruptela - 5046
-- gator - 5052
-- flespi - 5149
-- egts - 5162
-- dmthttp - 5139
-- cellocator - 5033
-- galileo - 5034
-- osmand - 5055
-- h02 - 5013
-- megastek - 5024
-- xexun - 5006
-- teltonika - 5027
-- suntech - 5011
-- khd - 5058
-- laipac - 5048
-- easytrack - 5056
-- skypatrol - 5021
-- meitrack - 5020
-- gl200 - 5004
+### Parameters
+The chart incorporates every configuration file setting, which can be found [ here](https://www.traccar.org/configuration-file/)
