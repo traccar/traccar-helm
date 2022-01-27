@@ -133,6 +133,8 @@ securityContext:
 
 service:
   type: ClusterIP
+  # loadBalancerIP: ""
+  # loadBalancerSourceRanges: []
   port: 80
   protocolPorts:
   - name: gps103
