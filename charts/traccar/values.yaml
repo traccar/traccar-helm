@@ -131,11 +131,31 @@ securityContext:
   runAsNonRoot: true
   runAsUser: 1000
 
+ingress:
+  enabled: false
+  extraAnnotations: {}
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+    # cert-manager.io/cluster-issuer: "letsencrypt-prod"
+  hosts:
+    - host: traccar.example.com
+      paths:
+        - /
+  tls: []
+  # - secretName: traccar-tls
+  #   hosts:
+  #     - traccar.example.com
+
 service:
   type: ClusterIP
+  port: 80
+
+externalService:
+  type: LoadBalancer
+  enabled: false
   # loadBalancerIP: ""
   # loadBalancerSourceRanges: []
-  port: 80
   protocolPorts:
   - name: gps103
     port: 5001
