@@ -1,7 +1,10 @@
+{{- $fullName := include "traccar.fullname" . -}}
+{{- $externalfullname := printf "external-%s" $fullName -}}
+
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "traccar.fullname" . }}
+  name: {{ $fullName }}
   labels:
     {{- include "traccar.labels" . | nindent 4 }}
 spec:
@@ -11,6 +14,27 @@ spec:
       targetPort: http
       protocol: TCP
       name: http
-    {{- toYaml .Values.service.protocolPorts | nindent 4 }}
   selector:
     {{- include "traccar.selectorLabels" . | nindent 4 }}
+---
+{{- if .Values.externalService.enabled -}}
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $externalfullname }}
+  labels:
+    {{- include "traccar.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.externalService.type }}
+{{- if .Values.externalService.loadBalancerIP }}
+  loadBalancerIP: {{ .Values.externalService.loadBalancerIP }}
+{{- end }}
+{{- if .Values.externalService.loadBalancerSourceRanges }}
+  loadBalancerSourceRanges: {{ toYaml .Values.externalService.loadBalancerSourceRanges | nindent 4 }}
+{{- end }}
+  ports:
+    {{- toYaml .Values.externalService.protocolPorts | nindent 4 }}
+  selector:
+    {{- include "traccar.selectorLabels" . | nindent 4 }}
+{{- end }}
