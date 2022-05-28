@@ -37,6 +37,8 @@ traccar:
   #   future:
   #   maxSpeed:
   #   skipAttributes:
+  #     enable:
+  #     attributes:
   # distance:
   #   enable:
   logger:
