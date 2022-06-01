@@ -121,8 +121,11 @@ data:
 {{- if .Values.traccar.filter.maxSpeed }}
         <entry key='filter.maxSpeed'>{{ .Values.traccar.filter.maxSpeed }}</entry>
 {{- end }}
-{{- if .Values.traccar.filter.skipAttributes }}
-        <entry key='filter.skipAttributes'>{{ .Values.traccar.filter.skipAttributes }}</entry>
+{{- if eq .Values.traccar.filter.skipAttributes.enable "true"}}
+        <entry key='filter.skipAttributes.enable'>{{ .Values.traccar.filter.skipAttributes.enable }}</entry>
+{{- if .Values.traccar.filter.skipAttributes.attributes }}
+        <entry key='filter.skipAttributes'>{{ .Values.traccar.filter.skipAttributes.attributes }}</entry>
+{{- end }}
 {{- end }}
 {{- end }}
 
@@ -345,6 +348,9 @@ data:
 {{- end }}
 {{- if .Values.traccar.report.trip.minimalParkingDuration }}
         <entry key='report.trip.minimalParkingDuration'>{{ .Values.traccar.report.trip.minimalParkingDuration }}</entry>
+{{- end }}
+{{- if .Values.traccar.report.trip.minimalNoDataDuration }}
+        <entry key='report.trip.minimalNoDataDuration'>{{ .Values.traccar.report.trip.minimalNoDataDuration }}</entry>
 {{- end }}
 {{- if .Values.traccar.report.trip.greedyParking }}
         <entry key='report.trip.greedyParking'>{{ .Values.traccar.report.trip.greedyParking }}</entry>
