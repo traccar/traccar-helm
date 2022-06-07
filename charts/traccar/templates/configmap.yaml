@@ -244,7 +244,7 @@ data:
 {{- end }}
 
 {{- if .Values.traccar.event }}
-{{- if .Values.traccar.event.enable }}
+{{- if eq .Values.traccar.event.enable "true"}}
         <entry key='event.enable'>{{ .Values.traccar.event.enable }}</entry>
 {{- if .Values.traccar.event.motion }}
 {{- if .Values.traccar.event.motion.speedThreshold }}
