@@ -2,82 +2,86 @@ traccar:
   # server:
   #   statistics:
   # web:
-  #   enable: "true"
-  #   address: "0.0.0.0"
-  #   port: "8082"
-  #   path:
-  #   debug: "false"
-  #   console: "true"
-  #   timeout:
-  #   old:
-  #   application:
+    # enable: "true"
+    # address: "0.0.0.0"
+    # port: "8082"
+    # path:
+    # debug: "false"
+    # console: "true"
+    # timeout:
+    # old:
+    # application:
   # geocoder:
-  #   enable:
-  #   type:
-  #   url:
-  #   onRequest:
-  #   ignorePositions:
-  #   processInvalidPositions:
-  #   format:
-  #   reuseDistance:
+    # enable:
+    # type:
+    # url:
+    # onRequest:
+    # ignorePositions:
+    # processInvalidPositions:
+    # format:
+    # reuseDistance:
   # geolocation:
-  #   enable:
-  #   type:
-  #   key:
-  #   mcc:
-  #   mnc:
-  #   processInvalidPositions:
-  # filter:
-  #   enable:
-  #   skipLimit:
-  #   invalid:
-  #   zero:
-  #   duplicate:
-  #   distance:
-  #   future:
-  #   maxSpeed:
-  #   skipAttributes:
-  #     enable:
-  #     attributes:
-  # distance:
-  #   enable:
+    # enable:
+    # type:
+    # key:
+    # mcc:
+    # mnc:
+    # processInvalidPositions:
+  filter:
+    enable: "false"
+    # skipLimit:
+    # invalid:
+    # zero:
+    # duplicate:
+    # distance: 80
+    # future:
+    # maxSpeed:
+    skipAttributes:
+      enable: "false"
+      # attributes:
+  distance:
+    enable: "false"
   logger:
     enable: "true"
     level: "info"
-  # processing:
-  #   remoteAddress:
-  #   copyAttributes:
+  processing:
+    remoteAddress:
+      enable: "false"
+    copyAttributes:
+      enable: "false"
+      # attributes:
   # database:
-  #   driverFile:
-  #   driver:
-  #   url:
-  #   user:
-  #   password:
-  #   changelog:
-  #   checkConnection:
-  #   ignoreUnknown:
-  #   registerUnknown:
-  #     enable:
-  #     defaultGroupId:
-  #   xml:
-  #   saveOriginal:
-  #   selectDevicesAll:
-  #   insertPosition:
-  #   updateLatestPosition:
+    # driverFile:
+    # driver:
+    # url:
+    # user:
+    # password:
+    # changelog:
+    # checkConnection:
+    # ignoreUnknown:
+    # registerUnknown:
+      # enable:
+      # defaultGroupId:
+    # xml:
+    # saveOriginal:
+    # selectDevicesAll:
+    # insertPosition:
+    # updateLatestPosition:
   # globalsat:
-  #   format0:
-  #   format1:
+    # format0:
+    # format1:
   # coordinates:
-  #   filter:
-  #   minError:
-  #   maxError:
-  # event:
-  #   enable:
-  #   overspeed:
-  #     notRepeat:
-  #   motion:
-  #     speedThreshold:
-  #   forward:
+    # filter:
+    # minError:
+    # maxError:
+  event:
+    enable: "false"
+    # overspeed:
+    #   notRepeat:
+    # motion:
+    #   speedThreshold: 5
+    forward:
+      enable: "false"
   #     url:
   #     header:
   # speedLimit:
@@ -89,6 +93,10 @@ traccar:
   # mail:
   # templates:
   # report:
+  #   minimalParkingDuration:
+  #   minimalNoDataDuration:
+  #   minimalTripDuration:
+  #   minimalTripDistance:
   # wialon:
   # status:
   #   timeout:

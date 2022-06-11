@@ -16,7 +16,6 @@ data:
         <entry key='server.statistics'>{{ .Values.traccar.server.statistics }}</entry>
 {{- end }}
 {{- end }}
-
 {{- if .Values.traccar.web }}
 {{- if .Values.traccar.web.enable }}
         <entry key='web.enable'>{{ .Values.traccar.web.enable }}</entry>
@@ -47,7 +46,6 @@ data:
 {{- end }}
         <entry key='web.healthCheck'>false</entry>
 {{- end }}
-
 {{- if .Values.traccar.geocoder }}
 {{- if .Values.traccar.geocoder.enable }}
         <entry key='geocoder.enable'>{{ .Values.traccar.geocoder.enable }}</entry>
@@ -74,7 +72,6 @@ data:
         <entry key='geocoder.reuseDistance'>{{ .Values.traccar.geocoder.reuseDistance }}</entry>
 {{- end }}
 {{- end }}
-
 {{- if .Values.traccar.geolocation }}
 {{- if .Values.traccar.geolocation.enable }}
         <entry key='geolocation.enable'>{{ .Values.traccar.geolocation.enable }}</entry>
@@ -95,21 +92,18 @@ data:
         <entry key='geolocation.processInvalidPositions'>{{ .Values.traccar.geolocation.processInvalidPositions }}</entry>
 {{- end }}
 {{- end }}
-
-{{- if .Values.traccar.filter }}
-{{- if .Values.traccar.filter.enable }}
+{{- if eq .Values.traccar.filter.enable "true" }}
         <entry key='filter.enable'>{{ .Values.traccar.filter.enable }}</entry>
-{{- end }}
 {{- if .Values.traccar.filter.skipLimit }}
         <entry key='filter.skipLimit'>{{ .Values.traccar.filter.skipLimit }}</entry>
 {{- end }}
-{{- if .Values.traccar.filter.invalid }}
+{{- if eq .Values.traccar.filter.invalid "true" }}
         <entry key='filter.invalid'>{{ .Values.traccar.filter.invalid }}</entry>
 {{- end }}
-{{- if .Values.traccar.filter.zero }}
+{{- if eq .Values.traccar.filter.zero "true" }}
         <entry key='filter.zero'>{{ .Values.traccar.filter.zero }}</entry>
 {{- end }}
-{{- if .Values.traccar.filter.duplicate }}
+{{- if eq .Values.traccar.filter.duplicate "true" }}
         <entry key='filter.duplicate'>{{ .Values.traccar.filter.duplicate }}</entry>
 {{- end }}
 {{- if .Values.traccar.filter.distance }}
@@ -121,47 +115,33 @@ data:
 {{- if .Values.traccar.filter.maxSpeed }}
         <entry key='filter.maxSpeed'>{{ .Values.traccar.filter.maxSpeed }}</entry>
 {{- end }}
-{{- if eq .Values.traccar.filter.skipAttributes.enable "true"}}
+{{- if and ( eq .Values.traccar.filter.skipAttributes.enable "true" ) ( trim .Values.traccar.filter.skipAttributes.attributes ) }}
         <entry key='filter.skipAttributes.enable'>{{ .Values.traccar.filter.skipAttributes.enable }}</entry>
-{{- if .Values.traccar.filter.skipAttributes.attributes }}
         <entry key='filter.skipAttributes'>{{ .Values.traccar.filter.skipAttributes.attributes }}</entry>
 {{- end }}
 {{- end }}
-{{- end }}
-
-{{- if .Values.traccar.distance }}
 {{- if eq .Values.traccar.distance.enable "true" }}
         <entry key='distance.enable'>{{ .Values.traccar.distance.enable }}</entry>
-{{- end }}
-{{- end }}
-
-{{- if .Values.traccar.logger }}
 {{- if eq .Values.traccar.logger.enable "true" }}
         <entry key='logger.enable'>{{ .Values.traccar.logger.enable }}</entry>
-{{- if .Values.traccar.logger.level }}
-        <entry key='logger.level'>{{ .Values.traccar.logger.level }}</entry>
-{{- end }}
+{{- if or ( eq ( lower .Values.traccar.logger.level ) "severe" ) ( eq ( lower .Values.traccar.logger.level ) "warning" ) ( eq ( lower .Values.traccar.logger.level ) "info" ) ( eq ( lower .Values.traccar.logger.level ) "config" ) ( eq ( lower .Values.traccar.logger.level ) "fine" ) ( eq ( lower .Values.traccar.logger.level ) "finer" ) ( eq ( lower .Values.traccar.logger.level ) "finest" ) }}
+        <entry key='logger.level'>{{ lower .Values.traccar.logger.level }}</entry>
         <entry key='logger.file'>/dev/stdout</entry>
         <entry key='logger.rotate'>false</entry>
+{{- end }}
 {{ else }}
-        <entry key='logger.enable'>{{ .Values.traccar.logger.enable }}</entry>
+        <entry key='logger.enable'>false</entry>
 {{- end }}
 {{- end }}
-
-{{- if .Values.traccar.processing }}
-{{- if .Values.traccar.processing.remoteAddress }}
-{{- if .Values.traccar.processing.remoteAddress.enable }}
+{{- if eq .Values.traccar.processing.remoteAddress.enable "true" }}
         <entry key='processing.remoteAddress.enable'>{{ .Values.traccar.processing.remoteAddress.enable }}</entry>
 {{- end }}
-{{- end }}
-{{- if .Values.traccar.processing.copyAttributes }}
-{{- if .Values.traccar.processing.copyAttributes.enable }}
+{{- if ( eq .Values.traccar.processing.copyAttributes.enable "true") }}
+        {{- if ( trim .Values.traccar.processing.copyAttributes.attributes )}}
         <entry key='processing.copyAttributes.enable'>{{ .Values.traccar.processing.copyAttributes.enable }}</entry>
-        <entry key='processing.copyAttributes'>{{ .Values.traccar.processing.copyAttributes }}</entry>
+        <entry key='processing.copyAttributes'>{{ .Values.traccar.processing.copyAttributes.attributes }}</entry>
+        {{- end }}
 {{- end }}
-{{- end }}
-{{- end }}
-
 {{- if or .Values.traccar.database .Values.mysql.enabled }}
 {{- if .Values.mysql.enabled }}
         <entry key='database.driver'>com.mysql.cj.jdbc.Driver</entry>
@@ -221,7 +201,6 @@ data:
         <entry key='database.updateLatestPosition'>{{ .Values.traccar.database.updateLatestPosition }}</entry>
 {{- end }}
 {{- end }}
-
 {{- if .Values.traccar.globalsat }}
 {{- if .Values.traccar.globalsat.format0 }}
         <entry key='globalsat.format0'>{{ .Values.traccar.globalsat.format0 }}</entry>
@@ -230,7 +209,6 @@ data:
         <entry key='globalsat.format1'>{{ .Values.traccar.globalsat.format1 }}</entry>
 {{- end }}
 {{- end }}
-
 {{- if .Values.traccar.coordinates }}
 {{- if .Values.traccar.coordinates.filter }}
         <entry key='coordinates.filter'>{{ .Values.traccar.coordinates.filter }}</entry>
@@ -242,9 +220,7 @@ data:
         <entry key='coordinates.maxError'>{{ .Values.traccar.coordinates.maxError }}</entry>
 {{- end }}
 {{- end }}
-
-{{- if .Values.traccar.event }}
-{{- if eq .Values.traccar.event.enable "true"}}
+{{- if eq .Values.traccar.event.enable "true" }}
         <entry key='event.enable'>{{ .Values.traccar.event.enable }}</entry>
 {{- if .Values.traccar.event.motion }}
 {{- if .Values.traccar.event.motion.speedThreshold }}
@@ -268,12 +244,9 @@ data:
 {{- end }}
 {{- end }}
 {{- end }}
-{{- end }}
-
 {{- if .Values.traccar.speedLimit }}
         <entry key='speedLimit'>{{ .Values.traccar.speedLimit }}</entry>
 {{- end }}
-
 {{- if .Values.traccar.deviceManager }}
 {{- if .Values.traccar.deviceManager.lookupGroupsAttribute }}
         <entry key='deviceManager.lookupGroupsAttribute'>{{ .Values.traccar.deviceManager.lookupGroupsAttribute }}</entry>
@@ -339,25 +312,23 @@ data:
 {{- end }}
 
 {{- if .Values.traccar.report }}
-{{- if .Values.traccar.report.trip }}
-{{- if .Values.traccar.report.trip.minimalTripDuration }}
-        <entry key='report.trip.minimalTripDuration'>{{ .Values.traccar.report.trip.minimalTripDuration }}</entry>
+{{- if .Values.traccar.report.minimalTripDuration }}
+        <entry key='report.trip.minimalTripDuration'>{{ .Values.traccar.report.minimalTripDuration }}</entry>
 {{- end }}
-{{- if .Values.traccar.report.trip.minimalTripDistance }}
-        <entry key='report.trip.minimalTripDistance'>{{ .Values.traccar.report.trip.minimalTripDistance }}</entry>
+{{- if .Values.traccar.report.minimalTripDistance }}
+        <entry key='report.trip.minimalTripDistance'>{{ .Values.traccar.report.minimalTripDistance }}</entry>
 {{- end }}
-{{- if .Values.traccar.report.trip.minimalParkingDuration }}
-        <entry key='report.trip.minimalParkingDuration'>{{ .Values.traccar.report.trip.minimalParkingDuration }}</entry>
+{{- if .Values.traccar.report.minimalParkingDuration }}
+        <entry key='report.trip.minimalParkingDuration'>{{ .Values.traccar.report.minimalParkingDuration }}</entry>
 {{- end }}
-{{- if .Values.traccar.report.trip.minimalNoDataDuration }}
-        <entry key='report.trip.minimalNoDataDuration'>{{ .Values.traccar.report.trip.minimalNoDataDuration }}</entry>
+{{- if .Values.traccar.report.minimalNoDataDuration }}
+        <entry key='report.trip.minimalNoDataDuration'>{{ .Values.traccar.report.minimalNoDataDuration }}</entry>
 {{- end }}
-{{- if .Values.traccar.report.trip.greedyParking }}
-        <entry key='report.trip.greedyParking'>{{ .Values.traccar.report.trip.greedyParking }}</entry>
+{{- if .Values.traccar.report.greedyParking }}
+        <entry key='report.trip.greedyParking'>{{ .Values.traccar.report.greedyParking }}</entry>
 {{- end }}
-{{- if .Values.traccar.report.trip.useIgnition }}
-        <entry key='report.trip.useIgnition'>{{ .Values.traccar.report.trip.useIgnition }}</entry>
-{{- end }}
+{{- if .Values.traccar.report.useIgnition }}
+        <entry key='report.trip.useIgnition'>{{ .Values.traccar.report.useIgnition }}</entry>
 {{- end }}
 {{- end }}
 
