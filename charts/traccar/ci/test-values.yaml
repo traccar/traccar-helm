@@ -108,7 +108,9 @@ mysql:
     database: "traccar"
     username: "traccar"
     password: "traccar"
-
+  primary:
+    persistance:
+      enabled: false
 image:
   repository: traccar/traccar
   pullPolicy: IfNotPresent
