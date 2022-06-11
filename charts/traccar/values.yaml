@@ -2,43 +2,43 @@ traccar:
   # server:
   #   statistics:
   # web:
-    # enable: "true"
-    # address: "0.0.0.0"
-    # port: "8082"
-    # path:
-    # debug: "false"
-    # console: "true"
-    # timeout:
-    # old:
-    # application:
+  #   enable: "true"
+  #   address: "0.0.0.0"
+  #   port: "8082"
+  # #   path:
+  #   debug: "false"
+  #   console: "true"
+  #   timeout:
+  #   old:
+  #   application:
   # geocoder:
-    # enable:
-    # type:
-    # url:
-    # onRequest:
-    # ignorePositions:
-    # processInvalidPositions:
-    # format:
-    # reuseDistance:
+  #   enable:
+  #   type:
+  #   url:
+  #   onRequest:
+  #   ignorePositions:
+  #   processInvalidPositions:
+  #   format:
+  #   reuseDistance:
   # geolocation:
-    # enable:
-    # type:
-    # key:
-    # mcc:
-    # mnc:
-    # processInvalidPositions:
+  #   enable:
+  #   type:
+  #   key:
+  #   mcc:
+  #   mnc:
+  #   processInvalidPositions:
   filter:
     enable: "false"
-    # skipLimit:
-    # invalid:
-    # zero:
-    # duplicate:
-    # distance: 80
-    # future:
-    # maxSpeed:
-    skipAttributes:
-      enable: "false"
-      # attributes:
+  #   skipLimit: 5
+  #   invalid: "true"
+  #   zero: "true"
+  #   duplicate: "true"
+  #   distance: 80
+  #   future: 86400
+  #   maxSpeed: 200
+  #   skipAttributes:
+  #     enable: "true"
+  #     attributes: "alarm,result,driverUniqueId"
   distance:
     enable: "false"
   logger:
@@ -49,39 +49,39 @@ traccar:
       enable: "false"
     copyAttributes:
       enable: "false"
-      # attributes:
+  #     attributes: "io83,io84,io87,io89"
   # database:
-    # driverFile:
-    # driver:
-    # url:
-    # user:
-    # password:
-    # changelog:
-    # checkConnection:
-    # ignoreUnknown:
-    # registerUnknown:
-      # enable:
-      # defaultGroupId:
-    # xml:
-    # saveOriginal:
-    # selectDevicesAll:
-    # insertPosition:
-    # updateLatestPosition:
+  #   driverFile:
+  #   driver:
+  #   url:
+  #   user:
+  #   password:
+  #   changelog:
+  #   checkConnection:
+  #   ignoreUnknown:
+  #   registerUnknown:
+  #     enable:
+  #     defaultGroupId:
+  #   xml:
+  #   saveOriginal:
+  #   selectDevicesAll:
+  #   insertPosition:
+  #   updateLatestPosition:
   # globalsat:
-    # format0:
-    # format1:
+  #   format0:
+  #   format1:
   # coordinates:
-    # filter:
-    # minError:
-    # maxError:
+  #   filter:
+  #   minError:
+  #   maxError:
   event:
     enable: "false"
-    # overspeed:
-    #   notRepeat:
+  #   overspeed:
+  #     notRepeat:
     # motion:
-    #   speedThreshold: 5
-    forward:
-      enable: "false"
+    #   speedThreshold:
+    # forward:
+    #   enable:
   #     url:
   #     header:
   # speedLimit:
@@ -93,10 +93,10 @@ traccar:
   # mail:
   # templates:
   # report:
-  #   minimalParkingDuration:
-  #   minimalNoDataDuration:
-  #   minimalTripDuration:
-  #   minimalTripDistance:
+  #   minimalParkingDuration: 500
+  #   minimalNoDataDuration: 500
+  #   minimalTripDuration: 500
+  #   minimalTripDistance: 500
   # wialon:
   # status:
   #   timeout:
