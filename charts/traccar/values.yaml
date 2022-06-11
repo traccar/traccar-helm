@@ -109,7 +109,10 @@ mysql:
     username: "traccar"
     password: "traccar"
   primary:
-    persistance:
+    persistence:
+      enabled: false
+  secondary:
+    persistence:
       enabled: false
 
 image:
