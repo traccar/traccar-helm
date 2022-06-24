@@ -119,6 +119,8 @@ data:
         <entry key='filter.skipAttributes.enable'>{{ .Values.traccar.filter.skipAttributes.enable }}</entry>
         <entry key='filter.skipAttributes'>{{ .Values.traccar.filter.skipAttributes.attributes }}</entry>
 {{- end }}
+{{- else }}
+        <entry key='filter.enable'>false</entry>
 {{- end }}
 {{- if eq .Values.traccar.distance.enable "true" }}
         <entry key='distance.enable'>{{ .Values.traccar.distance.enable }}</entry>
