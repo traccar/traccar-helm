@@ -53,6 +53,9 @@ data:
 {{- if .Values.traccar.geocoder.type }}
         <entry key='geocoder.type'>{{ .Values.traccar.geocoder.type }}</entry>
 {{- end }}
+{{- if .Values.traccar.geocoder.key }}
+        <entry key='geocoder.key'>{{ .Values.traccar.geocoder.key }}</entry>
+{{- end }}
 {{- if .Values.traccar.geocoder.url }}
         <entry key='geocoder.url'>{{ .Values.traccar.geocoder.url }}</entry>
 {{- end }}
