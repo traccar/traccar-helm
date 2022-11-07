@@ -376,6 +376,11 @@ data:
         <entry key='notificator.traccar.key'>{{ .Values.traccar.notificator.traccar.key }}</entry>
 {{- end }}
 {{- end }}
+{- if .Values.traccar.notificator.firebase }}
+{- if .Values.traccar.notificator.firebase.serviceAccount }}
+        <entry key='notificator.firebase.serviceAccount'>{{ .Values.traccar.notificator.firebase.serviceAccount }}</entry>
+{{- end }}
+{{- end }}
 {{- if .Values.traccar.telegram }}
 {{- if .Values.traccar.telegram.key }}
         <entry key='notificator.telegram.key'>{{ .Values.traccar.notificator.telegram.key }}</entry>
