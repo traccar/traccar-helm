@@ -381,11 +381,11 @@ data:
         <entry key='notificator.firebase.serviceAccount'>{{ .Values.traccar.notificator.firebase.serviceAccount }}</entry>
 {{- end }}
 {{- end }}
-{{- if .Values.traccar.telegram }}
-{{- if .Values.traccar.telegram.key }}
+{{- if .Values.traccar.notificator.telegram }}
+{{- if .Values.traccar.notificator.telegram.key }}
         <entry key='notificator.telegram.key'>{{ .Values.traccar.notificator.telegram.key }}</entry>
 {{- end }}
-{{- if .Values.traccar.telegram.chatId }}
+{{- if .Values.traccar.notificator.telegram.chatId }}
         <entry key='notificator.telegram.chatId'>{{ .Values.traccar.notificator.telegram.chatId }}</entry>
 {{- end }}
 {{- end }}
