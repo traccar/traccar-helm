@@ -354,6 +354,17 @@ data:
 {{- if .Values.traccar.sms.enable }}
         <entry key='sms.enable'>{{ .Values.traccar.sms.enable }}</entry>
 {{- end }}
+{{- if .Values.traccar.sms.http }}
+{{- if .Values.traccar.sms.http.url }}
+        <entry key='sms.http.url'>{{ .Values.traccar.sms.http.url }}</entry>
+{{- end }}
+{{- if .Values.traccar.sms.http.authorization }}
+        <entry key='sms.http.authorization'>{{ .Values.traccar.sms.http.authorization }}</entry>
+{{- end }}
+{{- if .Values.traccar.sms.http.template }}
+        <entry key='sms.http.template'>{{ .Values.traccar.sms.http.template }}</entry>
+{{- end }}
+{{- end }}
 {{- end }}
 
 {{- if .Values.traccar.notificator }}
