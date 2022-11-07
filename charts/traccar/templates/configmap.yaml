@@ -355,4 +355,18 @@ data:
         <entry key='sms.enable'>{{ .Values.traccar.sms.enable }}</entry>
 {{- end }}
 {{- end }}
+
+{{- if .Values.traccar.notificator }}
+{{- if .Values.traccar.notificator.types }}
+        <entry key='notificator.types'>{{ .Values.traccar.notificator.types }}</entry>
+{{- end }}
+{{- if .Values.traccar.telegram }}
+{{- if .Values.traccar.telegram.key }}
+        <entry key='notificator.telegram.key'>{{ .Values.traccar.notificator.telegram.key }}</entry>
+{{- end }}
+{{- if .Values.traccar.telegram.chatId }}
+        <entry key='notificator.telegram.chatId'>{{ .Values.traccar.notificator.telegram.chatId }}</entry>
+{{- end }}
+{{- end }}
+{{- end }}
     </properties>
