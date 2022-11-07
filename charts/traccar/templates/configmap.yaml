@@ -354,5 +354,40 @@ data:
 {{- if .Values.traccar.sms.enable }}
         <entry key='sms.enable'>{{ .Values.traccar.sms.enable }}</entry>
 {{- end }}
+{{- if .Values.traccar.sms.http }}
+{{- if .Values.traccar.sms.http.url }}
+        <entry key='sms.http.url'>{{ .Values.traccar.sms.http.url }}</entry>
+{{- end }}
+{{- if .Values.traccar.sms.http.authorization }}
+        <entry key='sms.http.authorization'>{{ .Values.traccar.sms.http.authorization }}</entry>
+{{- end }}
+{{- if .Values.traccar.sms.http.template }}
+        <entry key='sms.http.template'>{{ .Values.traccar.sms.http.template }}</entry>
+{{- end }}
+{{- end }}
+{{- end }}
+
+{{- if .Values.traccar.notificator }}
+{{- if .Values.traccar.notificator.types }}
+        <entry key='notificator.types'>{{ .Values.traccar.notificator.types }}</entry>
+{{- end }}
+{{- if .Values.traccar.notificator.traccar }}
+{{- if .Values.traccar.notificator.traccar.key }}
+        <entry key='notificator.traccar.key'>{{ .Values.traccar.notificator.traccar.key }}</entry>
+{{- end }}
+{{- end }}
+{{- if .Values.traccar.notificator.firebase }}
+{{- if .Values.traccar.notificator.firebase.serviceAccount }}
+        <entry key='notificator.firebase.serviceAccount'>{{ .Values.traccar.notificator.firebase.serviceAccount }}</entry>
+{{- end }}
+{{- end }}
+{{- if .Values.traccar.notificator.telegram }}
+{{- if .Values.traccar.notificator.telegram.key }}
+        <entry key='notificator.telegram.key'>{{ .Values.traccar.notificator.telegram.key }}</entry>
+{{- end }}
+{{- if .Values.traccar.notificator.telegram.chatId }}
+        <entry key='notificator.telegram.chatId'>{{ .Values.traccar.notificator.telegram.chatId }}</entry>
+{{- end }}
+{{- end }}
 {{- end }}
     </properties>
