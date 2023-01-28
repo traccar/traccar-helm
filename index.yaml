@@ -3,6 +3,24 @@ entries:
   traccar:
   - apiVersion: v2
     appVersion: "4.13"
+    created: "2023-01-28T14:28:51.507845708Z"
+    dependencies:
+    - condition: mysql.enabled
+      name: mysql
+      repository: https://charts.bitnami.com/bitnami
+      version: 9.4.8
+    description: A Helm chart for Traccar GPS Server
+    digest: 88d0cb12dc170e585c3968add371412fa9a6bb48b6037b867c9b4c46a5b3de31
+    maintainers:
+    - email: laszlo.kondas@gmail.com
+      name: kondas
+    name: traccar
+    type: application
+    urls:
+    - https://github.com/traccar/traccar-helm/releases/download/traccar-1.2.2/traccar-1.2.2.tgz
+    version: 1.2.2
+  - apiVersion: v2
+    appVersion: "4.13"
     created: "2022-11-13T16:35:53.418868547Z"
     dependencies:
     - condition: mysql.enabled
@@ -91,4 +109,4 @@ entries:
     urls:
     - https://github.com/traccar/traccar-helm/releases/download/traccar-1.1.1/traccar-1.1.1.tgz
     version: 1.1.1
-generated: "2022-11-13T16:35:53.418891847Z"
+generated: "2023-01-28T14:28:51.508135209Z"
