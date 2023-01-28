@@ -388,6 +388,9 @@ data:
 {{- if .Values.traccar.notificator.telegram.chatId }}
         <entry key='notificator.telegram.chatId'>{{ .Values.traccar.notificator.telegram.chatId }}</entry>
 {{- end }}
+{{- if .Values.traccar.notificator.telegram.sendLocation }} 
+        <entry key='notificator.telegram.sendLocation'>{{ .Values.traccar.notificator.telegram.sendLocation }}</entry>
+{{- end }}
 {{- end }}
 {{- end }}
     </properties>
