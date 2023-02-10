@@ -147,6 +147,9 @@ securityContext:
   runAsNonRoot: true
   runAsUser: 1000
 
+# A list of initContainers to run before the pod starts
+initContainers: []
+
 ingress:
   enabled: false
   extraAnnotations: {}
