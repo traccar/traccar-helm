@@ -24,3 +24,16 @@ The command removes all the Kubernetes components associated with the deplyoment
 
 ### Parameters
 The chart incorporates every configuration file setting, which can be found [ here](https://www.traccar.org/configuration-file/)
+
+### Image flavors
+The [traccar container image](https://github.com/traccar/traccar-docker) comes in _different flavors_. Currently available are
+* alpine
+* debian
+* ubuntu
+If none is specified during installation of this chart, the default is alpine based.
+
+To set your preferred flavor, you can use `--set image.flavor=debian` for example, or, for more reusability, append the following lines to your installation's `values.yaml`
+```yaml
+image:
+  flavor: "debian"
+```
