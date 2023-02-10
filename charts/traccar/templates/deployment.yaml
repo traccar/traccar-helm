@@ -36,6 +36,8 @@ spec:
       initContainers:
 {{- if .Values.mysql.enabled }}
         - name: wait-for-db
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
           image: "alpine:3.6"
           command:
             - 'sh'
