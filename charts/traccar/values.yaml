@@ -118,6 +118,7 @@ mysql:
 image:
   repository: traccar/traccar
   pullPolicy: IfNotPresent
+  # flavor: "" # available are alpine, debian or ubuntu
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
 

@@ -60,3 +60,12 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{- define "traccar.image" -}}
+{{- $tag := .Values.image.tag | default .Chart.AppVersion }}
+{{- if .Values.image.flavor }}
+{{- printf "%s:%s-%s" .Values.image.repository $tag .Values.image.flavor }}
+{{- else }}
+{{- printf "%s:%s" .Values.image.repository $tag }}
+{{- end }}
+{{- end }}

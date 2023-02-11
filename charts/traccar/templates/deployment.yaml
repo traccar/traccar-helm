@@ -59,7 +59,7 @@ spec:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          image: {{ include "traccar.image" . }}
           command: ["java", "-Xms512m", "-Xmx512m", "-Djava.net.preferIPv4Stack=true"]
           args: ["-jar", "tracker-server.jar", "conf/traccar.xml"]
           imagePullPolicy: {{ .Values.image.pullPolicy }}
