@@ -863,6 +863,17 @@ externalService:
     port: 5228
     targetPort: thinkpower
 
+# This allows you to provide the entire config from scratch.
+# configOverride: |
+#   <?xml version='1.0' encoding='UTF-8'?>
+#   <!DOCTYPE properties SYSTEM 'http://java.sun.com/dtd/properties.dtd'>
+#   <properties>
+#       <entry key='config.default'>./conf/default.xml</entry>
+#       <entry key='web.enable'>true</entry>
+#       <entry key='web.disableHealthCheck'>true</entry>
+#       <entry key='....'>....</entry>
+#   </properties>
+
 resources: {}
 
 nodeSelector:

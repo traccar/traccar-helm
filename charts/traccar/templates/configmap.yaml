@@ -6,6 +6,9 @@ metadata:
     {{- include "traccar.labels" . | nindent 4 }}
 data:
   traccar.xml: |
+{{- if .Values.configOverride }}
+    {{- .Values.configOverride | nindent 4 }}
+{{- else }}
     <?xml version='1.0' encoding='UTF-8'?>
     <!DOCTYPE properties SYSTEM 'http://java.sun.com/dtd/properties.dtd'>
     <properties>
@@ -44,7 +47,7 @@ data:
 {{- if .Values.traccar.web.application }}
         <entry key='web.application'>{{ .Values.traccar.web.application }}</entry>
 {{- end }}
-        <entry key='web.healthCheck'>false</entry>
+        <entry key='web.disableHealthCheck'>true</entry>
 {{- end }}
 {{- if .Values.traccar.geocoder }}
 {{- if .Values.traccar.geocoder.enable }}
@@ -271,6 +274,9 @@ data:
 {{- end }}
 {{- if .Values.traccar.mail }}
 {{- if .Values.traccar.mail.smtp }}
+{{- if .Values.traccar.mail.smtp.ignoreUserConfig }}
+        <entry key='mail.smtp.ignoreUserConfig'>{{ .Values.traccar.mail.smtp.ignoreUserConfig }}</entry>
+{{- end }}
 {{- if .Values.traccar.mail.smtp.host }}
         <entry key='mail.smtp.host'>{{ .Values.traccar.mail.smtp.host }}</entry>
 {{- end }}
@@ -296,11 +302,14 @@ data:
 {{- end }}
 {{- end }}
 {{- end }}
-{{- if .Values.traccar.mail.smtp.from}}
-        <entry key='mail.smtp.debug'>{{ .Values.traccar.mail.smtp.from}}</entry>
+{{- if .Values.traccar.mail.debug }}
+        <entry key='mail.debug'>{{ .Values.traccar.mail.debug }}</entry>
 {{- end }}
-{{- if .Values.traccar.mail.smtp.auth }}
-        <entry key='mail.smtp.auth'>{{ .Values.traccar.mail.smtp.auth }}</entry>
+{{- if .Values.traccar.mail.smtp.from}}
+        <entry key='mail.smtp.from'>{{ .Values.traccar.mail.smtp.from }}</entry>
+{{- end }}
+{{- if .Values.traccar.mail.smtp.fromName }}
+        <entry key='mail.smtp.fromName'>{{ .Values.traccar.mail.smtp.fromName }}</entry>
 {{- end }}
 {{- if .Values.traccar.mail.smtp.username }}
         <entry key='mail.smtp.username'>{{ .Values.traccar.mail.smtp.username }}</entry>
@@ -394,3 +403,4 @@ data:
 {{- end }}
 {{- end }}
     </properties>
+{{- end }}
