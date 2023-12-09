@@ -27,6 +27,7 @@ jobs:
       - name: Add Helm dependency repos
         run: |
           helm repo add bitnami https://charts.bitnami.com/bitnami
+          helm repo add dandydeveloper https://dandydeveloper.github.io/charts
           helm repo update
 
       - name: Run chart-releaser
