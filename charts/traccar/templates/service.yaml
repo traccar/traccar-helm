@@ -25,6 +25,10 @@ metadata:
   name: {{ $externalfullname }}
   labels:
     {{- include "traccar.labels" . | nindent 4 }}
+  {{- with .Values.externalService.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
   type: {{ .Values.externalService.type }}
 {{- if .Values.externalService.loadBalancerIP }}
@@ -32,6 +36,9 @@ spec:
 {{- end }}
 {{- if .Values.externalService.loadBalancerSourceRanges }}
   loadBalancerSourceRanges: {{ toYaml .Values.externalService.loadBalancerSourceRanges | nindent 4 }}
+{{- end }}
+{{- if hasKey .Values.externalService "allocateLoadBalancerNodePorts" }}
+  allocateLoadBalancerNodePorts: {{ .Values.externalService.allocateLoadBalancerNodePorts }}
 {{- end }}
   ports:
     {{- toYaml .Values.externalService.protocolPorts | nindent 4 }}

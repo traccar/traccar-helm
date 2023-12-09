@@ -402,5 +402,9 @@ data:
 {{- end }}
 {{- end }}
 {{- end }}
+{{- if (index .Values "redis-ha").enabled }}
+        <entry key='broadcast.type'>redis</entry>
+        <entry key='broadcast.address'>redis://{{ include "traccar.fullname" . }}-redis-ha-haproxy:6379</entry>
+{{- end }}
     </properties>
 {{- end }}

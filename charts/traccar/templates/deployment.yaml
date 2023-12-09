@@ -5,12 +5,16 @@ metadata:
   labels:
     {{- include "traccar.labels" . | nindent 4 }}
 spec:
-  replicas: 1
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
   selector:
     matchLabels:
       {{- include "traccar.selectorLabels" . | nindent 6 }}
+  {{- with .Values.deploymentStrategy }}
   strategy:
-    type: Recreate
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
   template:
     metadata:
       annotations:
@@ -32,18 +36,31 @@ spec:
         - name: config
           configMap:
             name: {{ include "traccar.fullname" . }}
-{{- if or .Values.mysql.enabled .Values.initContainers }}
+{{- if or .Values.mysql.enabled (index .Values "redis-ha").enabled .Values.initContainers }}
       initContainers:
 {{- if .Values.mysql.enabled }}
         - name: wait-for-db
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "alpine:3.6"
+          image: "alpine:3.19"
           command:
             - 'sh'
             - '-c'
             - >
               until nc -z -w 2 {{ include "traccar.fullname" . }}-mysql 3306 && echo mysql ok;
+                do sleep 2;
+              done
+{{- end }}
+{{- if (index .Values "redis-ha").enabled }}
+        - name: wait-for-redis
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "alpine:3.19"
+          command:
+            - 'sh'
+            - '-c'
+            - >
+              until nc -z -w 2 {{ include "traccar.fullname" . }}-redis-ha-haproxy 6379 && echo redis ok;
                 do sleep 2;
               done
 {{- end }}
