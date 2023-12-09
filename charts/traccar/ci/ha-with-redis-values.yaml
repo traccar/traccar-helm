@@ -1,0 +1,14 @@
+replicaCount: 2
+
+deploymentStrategy:
+  rollingUpdate:
+    maxSurge: 25%
+    maxUnavailable: 25%
+  type: RollingUpdate
+
+redis-ha:
+  enabled: true
+  # defaults to 3. but we wan't CI to run through in a reasonable time.
+  replicas: 1
+  haproxy:
+    replicas: 1

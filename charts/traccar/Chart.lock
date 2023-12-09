@@ -2,5 +2,8 @@ dependencies:
 - name: mysql
   repository: https://charts.bitnami.com/bitnami
   version: 9.4.8
-digest: sha256:c54ca45ec9055b33d96c582be62d5c4afd9501f2edfee0afaa73876b7ae13cfa
-generated: "2023-01-28T11:57:35.495179799+01:00"
+- name: redis-ha
+  repository: https://dandydeveloper.github.io/charts
+  version: 4.23.0
+digest: sha256:91b7dd321c826a5721204763f11ac8a641c60cc23690250ca2eecd8c368cdac8
+generated: "2023-12-09T13:20:23.900368+01:00"

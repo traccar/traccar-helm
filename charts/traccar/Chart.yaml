@@ -2,13 +2,17 @@ apiVersion: v2
 name: traccar
 description: A Helm chart for Traccar GPS Server
 type: application
-version: 1.6.0
-appVersion: "5.6"
+version: 1.7.0
+appVersion: "5.10"
 dependencies:
   - name: mysql
     version: 9.4.8
     repository: https://charts.bitnami.com/bitnami
     condition: mysql.enabled
+  - name: redis-ha
+    version: 4.23.0
+    repository: https://dandydeveloper.github.io/charts
+    condition: redis-ha.enabled
 maintainers:
   - email: laszlo.kondas@gmail.com
     name: kondas

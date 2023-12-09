@@ -115,6 +115,19 @@ mysql:
     persistence:
       enabled: false
 
+# NOTE: When using multiple replicas, you must configure broadcast.type and broadcast.address
+#       This can be done via configOverride. See https://www.traccar.org/configuration-file/#:~:text=attributes%20to%20log.-,broadcast.type,-config
+#       Or by setting redis.enabled=true
+replicaCount: 1
+
+deploymentStrategy:
+  # Recreate has been the default until chart version 1.6.0 and is required if running a non-HA compatible setup
+  type: Recreate
+  # rollingUpdate:
+  #   maxSurge: 25%
+  #   maxUnavailable: 25%
+  # type: RollingUpdate
+
 image:
   repository: traccar/traccar
   pullPolicy: IfNotPresent
@@ -193,8 +206,15 @@ service:
 externalService:
   type: LoadBalancer
   enabled: false
+  annotations: {}
+    # metallb.universe.tf/loadBalancerIPs: 192.168.1.100
   # loadBalancerIP: ""
   # loadBalancerSourceRanges: []
+
+  # -- Enable node port allocation for the external controller service or not. Applies to type `LoadBalancer` only.
+  # Ref: https://kubernetes.io/docs/concepts/services-networking/service/#load-balancer-nodeport-allocation
+  # allocateLoadBalancerNodePorts: true
+
   protocolPorts:
   - name: gps103
     port: 5001
@@ -876,8 +896,27 @@ externalService:
 
 resources: {}
 
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
 nodeSelector:
 
 tolerations: []
 
 affinity: {}
+
+redis-ha:
+  # enables the redis subchart
+  enabled: false
+  persistentVolume:
+    enabled: false
+  redis:
+    masterGroupName: traccar
+  config:
+    save: '""'
+  haproxy:
+    enabled: true
