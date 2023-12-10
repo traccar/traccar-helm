@@ -1,3 +1,41 @@
+{{- define "flattenConfig" -}}
+{{- $prefix := index . 0 -}}
+{{- $value := index . 1 -}}
+{{- if kindIs "map" $value -}}
+  {{- range $k, $v := $value -}}
+    {{- if $prefix -}}
+        {{- template "flattenConfig" (list (printf "%s.%s" $prefix $k) $v) -}}
+    {{- else -}}
+        {{- template "flattenConfig" (list (printf "%s" $k) $v) -}}
+    {{- end -}}
+  {{- end -}}
+{{- else -}}
+<entry key={{ $prefix | quote }}>{{ $value }}</entry>
+{{ end -}}
+{{- end -}}
+
+{{ $config := .Values.traccar }}
+{{ $config := merge $config (dict  "config" (dict "default" "./conf/default.xml")) }}
+{{- if eq ((.Values.traccar).web).enable "true" }}
+{{ $config := merge $config (dict  "web" (dict "disableHealthCheck" "true")) }}
+{{- end }}
+{{- if eq ((.Values.traccar).logger).enable "true" }}
+{{ $config := merge $config (dict  "logger" (dict "file" "/dev/stdout" "rotate" false)) }}
+{{- end }}
+{{- if .Values.mysql.enabled }}
+{{ $config := merge $config (dict "database" (
+        dict
+        "driver" "com.mysql.cj.jdbc.Driver"
+        "url" (printf "jdbc:mysql://%s-mysql:3306/%s?serverTimezone=UTC&amp;useSSL=false&amp;allowMultiQueries=true&amp;autoReconnect=true&amp;useUnicode=yes&amp;characterEncoding=UTF-8&amp;sessionVariables=sql_mode=''" (include "traccar.fullname" .) .Values.mysql.auth.database)
+        "user" .Values.mysql.auth.username
+        "password" .Values.mysql.auth.password
+)) }}
+{{- end }}
+{{- if and (eq ((.Values.traccar).filter).enable "true") ( eq (((.Values.traccar).filter).skipAttributes).enable "true" ) ( trim .Values.traccar.filter.skipAttributes.attributes ) }}
+{{ $config := merge $config (dict  "filter" (dict "disableHealthCheck" "true")) }}
+        <entry key='filter.skipAttributes.enable'>{{ .Values.traccar.filter.skipAttributes.enable }}</entry>
+        <entry key='filter.skipAttributes'>{{ .Values.traccar.filter.skipAttributes.attributes }}</entry>
+{{- end }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -5,6 +43,12 @@ metadata:
   labels:
     {{- include "traccar.labels" . | nindent 4 }}
 data:
+  foobar.xml: |
+    <?xml version='1.0' encoding='UTF-8'?>
+    <!DOCTYPE properties SYSTEM 'http://java.sun.com/dtd/properties.dtd'>
+    <properties>
+    {{- include "flattenConfig" (list "" $config) | nindent 6 -}}
+    </properties>
   traccar.xml: |
 {{- if .Values.configOverride }}
     {{- .Values.configOverride | nindent 4 }}
