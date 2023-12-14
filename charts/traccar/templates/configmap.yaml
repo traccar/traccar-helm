@@ -13,6 +13,7 @@ data:
     <!DOCTYPE properties SYSTEM 'http://java.sun.com/dtd/properties.dtd'>
     <properties>
         <entry key='config.default'>./conf/default.xml</entry>
+        <entry key='config.useEnvironmentVariables'>true</entry>
 
 {{- if .Values.traccar.server }}
 {{- if .Values.traccar.server.statistics }}
@@ -155,8 +156,6 @@ data:
 {{- if .Values.mysql.enabled }}
         <entry key='database.driver'>com.mysql.cj.jdbc.Driver</entry>
         <entry key='database.url'>jdbc:mysql://{{ include "traccar.fullname" . }}-mysql:3306/{{ .Values.mysql.auth.database }}?serverTimezone=UTC&amp;useSSL=false&amp;allowMultiQueries=true&amp;autoReconnect=true&amp;useUnicode=yes&amp;characterEncoding=UTF-8&amp;sessionVariables=sql_mode=''</entry>
-        <entry key='database.user'>{{ .Values.mysql.auth.username }}</entry>
-        <entry key='database.password'>{{ .Values.mysql.auth.password }}</entry>
 {{- else }}
 {{- if .Values.traccar.database.driverFile }}
         <entry key='database.driverFile'>{{ .Values.traccar.database.driverFile }}</entry>
@@ -166,12 +165,6 @@ data:
 {{- end }}
 {{- if .Values.traccar.database.url }}
         <entry key='database.url'>{{ .Values.traccar.database.url }}</entry>
-{{- end }}
-{{- if .Values.traccar.database.user }}
-        <entry key='database.user'>{{ .Values.traccar.database.user }}</entry>
-{{- end }}
-{{- if .Values.traccar.database.password }}
-        <entry key='database.password'>{{ .Values.traccar.database.password }}</entry>
 {{- end }}
 {{- end }}
 {{- end }}
@@ -310,12 +303,6 @@ data:
 {{- end }}
 {{- if .Values.traccar.mail.smtp.fromName }}
         <entry key='mail.smtp.fromName'>{{ .Values.traccar.mail.smtp.fromName }}</entry>
-{{- end }}
-{{- if .Values.traccar.mail.smtp.username }}
-        <entry key='mail.smtp.username'>{{ .Values.traccar.mail.smtp.username }}</entry>
-{{- end }}
-{{- if .Values.traccar.mail.smtp.password }}
-        <entry key='mail.smtp.password'>{{ .Values.traccar.mail.smtp.password }}</entry>
 {{- end }}
 {{- end }}
 {{- end }}
