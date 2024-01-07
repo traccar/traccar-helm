@@ -139,7 +139,7 @@ data:
         <entry key='logger.file'>/dev/stdout</entry>
         <entry key='logger.rotate'>false</entry>
 {{- end }}
-{{ else }}
+{{- else }}
         <entry key='logger.enable'>false</entry>
 {{- end }}
 
@@ -362,7 +362,6 @@ data:
 {{- end }}
 {{- end }}
 {{- end }}
-
 {{- if .Values.traccar.notificator }}
 {{- if .Values.traccar.notificator.types }}
         <entry key='notificator.types'>{{ .Values.traccar.notificator.types }}</entry>
@@ -392,6 +391,10 @@ data:
 {{- if (index .Values "redis-ha").enabled }}
         <entry key='broadcast.type'>redis</entry>
         <entry key='broadcast.address'>redis://{{ include "traccar.fullname" . }}-redis-ha-haproxy:6379</entry>
+{{- end }}
+{{- if and (.Values.traccar.broadcast.enabled) (not (index .Values "redis-ha").enabled) }}
+        <entry key='broadcast.type'>redis</entry>
+        <entry key='broadcast.address'>{{ .Values.traccar.broadcast.address }}</entry>
 {{- end }}
     </properties>
 {{- end }}

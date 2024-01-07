@@ -14,3 +14,6 @@ Get the application URL by running these commands:
   echo "Visit http://127.0.0.1:8080 to use your application"
   kubectl --namespace {{ .Release.Namespace }} port-forward $POD_NAME 8080:$CONTAINER_PORT
 {{- end }}
+{{- if .Values.deploymentStrategy.type }}
+{{ printf "WARNING DEPRECATION: .Values.deploymentStrategy.type is no longer supported."}}
+{{- end }}

@@ -69,3 +69,16 @@ Create the name of the service account to use
 {{- printf "%s:%s" .Values.image.repository $tag }}
 {{- end }}
 {{- end }}
+
+{{- define "traccar.deploymentStrategy" -}}
+{{- if or (.Values.traccar.broadcast.enabled) (index .Values "redis-ha").enabled }}
+strategy:
+  type: RollingUpdate
+  rollingUpdate:
+    maxSurge: {{ coalesce .Values.deploymentStrategy.maxSurge "25%" | quote }}
+    maxUnavailable: {{ coalesce .Values.deploymentStrategy.maxUnavailable "25%" | quote }}
+{{- else }}
+strategy:
+  type: Recreate
+{{- end }}
+{{- end }}

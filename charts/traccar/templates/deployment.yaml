@@ -11,10 +11,7 @@ spec:
   selector:
     matchLabels:
       {{- include "traccar.selectorLabels" . | nindent 6 }}
-  {{- with .Values.deploymentStrategy }}
-  strategy:
-    {{- toYaml . | nindent 4 }}
-  {{- end }}
+  {{- include "traccar.deploymentStrategy" . | nindent 2 }}
   template:
     metadata:
       annotations:
