@@ -91,9 +91,25 @@ spec:
           args:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          {{- with .Values.env }}
           env:
-            {{- toYaml . | nindent 12 }}
+          {{- if .Values.env }}
+          {{- if kindIs "map" .Values.env }}
+          {{- range $key, $value := .Values.env }}
+            - name: {{ $key | quote }}
+              value: {{ $value | quote }}
+          {{- end }}
+          {{- else if kindIs "slice" .Values.env }}
+          {{- range .Values.env }}
+            - name: {{ .name | quote }}
+              {{- if .value }}
+              value: {{ .value | quote }}
+              {{- end }}
+              {{- if .valueFrom }}
+              valueFrom:
+                {{- toYaml .valueFrom | nindent 16 }}
+              {{- end }}
+          {{- end }}
+          {{- end }}
           {{- end }}
           {{- if not .Values.configOverride }}
           envFrom:
