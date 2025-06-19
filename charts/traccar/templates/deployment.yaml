@@ -772,19 +772,9 @@ spec:
               containerPort: 5228
               protocol: TCP
           livenessProbe:
-            httpGet:
-              path: /api/server
-              port: http
-            initialDelaySeconds: 60
-            periodSeconds: 60
-            failureThreshold: 2
+            {{- toYaml .Values.livenessProbe | nindent 12 }}
           readinessProbe:
-            httpGet:
-              path: /api/server?force=true
-              port: http
-            initialDelaySeconds: 60
-            periodSeconds: 60
-            failureThreshold: 1
+            {{- toYaml .Values.readinessProbe | nindent 12 }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
