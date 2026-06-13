@@ -36,14 +36,24 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       serviceAccountName: {{ include "traccar.serviceAccountName" . }}
+      {{- $podSec := .Values.podSecurityContext }}
+      {{- if and .Values.media.enabled (not .Values.podSecurityContext.fsGroup) .Values.securityContext.runAsUser }}
+        {{- $podSec = merge (dict "fsGroup" .Values.securityContext.runAsUser) .Values.podSecurityContext }}
+      {{- end }}
+      {{- if not (empty $podSec) }}
       securityContext:
-        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+        {{- toYaml $podSec | nindent 8 }}
+      {{- end }}
       volumes:
         - name: config
           configMap:
             name: {{ include "traccar.fullname" . }}
         - name: web-override
           {{- toYaml .Values.webOverride | nindent 10 }}
+        {{- if .Values.media.enabled }}
+        - name: media
+          {{- toYaml (omit .Values.media "enabled") | nindent 10 }}
+        {{- end }}
 {{- if or .Values.mysql.enabled (index .Values "redis-ha").enabled .Values.initContainers }}
       initContainers:
 {{- if .Values.mysql.enabled }}
@@ -785,6 +795,10 @@ spec:
             mountPath: "/opt/traccar/conf/traccar.xml"
           - name: "web-override"
             mountPath: "/opt/traccar/override"
+          {{- if .Values.media.enabled }}
+          - name: "media"
+            mountPath: "/opt/traccar/media"
+          {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
