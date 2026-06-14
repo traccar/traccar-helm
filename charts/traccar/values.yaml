@@ -945,3 +945,15 @@ readinessProbe:
 
 webOverride:
   emptyDir: {}
+  # Example configuration for branding overrides (e.g. via ConfigMap):
+  # configMap:
+  #   name: traccar-branding-configmap
+
+media:
+  enabled: false
+  # Example configuration for persisting media (e.g. via PVC):
+  # persistentVolumeClaim:
+  #   claimName: traccar-media-pvc
+  #
+  # Example configuration for local testing (non-persistent):
+  # emptyDir: {}
